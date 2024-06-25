@@ -3,6 +3,9 @@ package br.com.keidson.curso.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,7 +33,15 @@ public class ClienteEntity implements Serializable {
     private Long id;
     
     private String nome;
+
+    // owner do relacionamento;
+    @ManyToOne // Muitos clientes, tem Um endereço (vários clientes podem ter o mesmo endereço).
+    @JoinColumn(name = "endereco_id") // "name" da chave estrangeira, "JoinColumn" a coluna endereço_id referencia a coluna id da tabela endereço;
     private EnderecoEntity endereco;
+
+    // owner do relacionamento;
+    @OneToOne // Um cliente, tem Um contato (cada cliente, só tem um contato).
+    @JoinColumn(name = "contato_id") // "name" da chave estrangeira, "JoinColumn" a coluna contato_id referencia a coluna id da tabela contato;
     private ContatoEntity contato;
 
     @CreationTimestamp
