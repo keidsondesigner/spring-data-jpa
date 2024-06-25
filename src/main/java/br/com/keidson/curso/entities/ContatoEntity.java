@@ -1,6 +1,8 @@
 package br.com.keidson.curso.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,13 +18,16 @@ import java.io.Serializable;
 @Table(name = "tb_contato")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter 
+@Setter 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ContatoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String descricao;

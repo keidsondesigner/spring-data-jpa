@@ -2,6 +2,8 @@ package br.com.keidson.curso.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,13 +25,16 @@ import java.time.ZonedDateTime;
 @Table(name = "tb_cliente")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter 
+@Setter 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ClienteEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String nome;
