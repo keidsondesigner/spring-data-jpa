@@ -2,6 +2,7 @@ package br.com.keidson.curso.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,12 +41,12 @@ public class ClienteEntity implements Serializable {
     private String nome;
 
     // owner do relacionamento;
-    @ManyToOne // Muitos clientes, tem Um endereço (vários clientes podem ter o mesmo endereço).
+    @ManyToOne(fetch = FetchType.LAZY) // Muitos clientes, tem Um endereço (vários clientes podem ter o mesmo endereço).
     @JoinColumn(name = "endereco_id") // "name" da chave estrangeira, "JoinColumn" a coluna endereço_id referencia a coluna id da tabela endereço;
     private EnderecoEntity endereco;
 
     // owner do relacionamento;
-    @OneToOne // Um cliente, tem Um contato (cada cliente, só tem um contato).
+    @OneToOne(fetch = FetchType.LAZY) // Um cliente, tem Um contato (cada cliente, só tem um contato).
     @JoinColumn(name = "contato_id") // "name" da chave estrangeira, "JoinColumn" a coluna contato_id referencia a coluna id da tabela contato;
     private ContatoEntity contato;
 

@@ -1,6 +1,7 @@
 package br.com.keidson.curso.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,6 +38,6 @@ public class EnderecoEntity implements Serializable {
     private String bairro;
 
     // non-owner recebe a referência 'endereco' do owner 'cliente';
-    @OneToMany(mappedBy = "endereco") // Um endereço tem Muitos clientes, e um cliente tem um endreço;
+    @OneToMany(mappedBy = "endereco", fetch = FetchType.LAZY) // Um endereço tem Muitos clientes, e um cliente tem um endreço;
     private List<ClienteEntity> cliente; // indico que cliente é o dono do relacionamento;
 }
