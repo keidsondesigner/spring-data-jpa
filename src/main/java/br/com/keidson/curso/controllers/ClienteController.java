@@ -1,5 +1,7 @@
 package br.com.keidson.curso.controllers;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +30,15 @@ public class ClienteController {
         .endereco(clienteEntity.getEndereco().getLogradouro())
         .telefone(clienteEntity.getContato().getTelefone())
         .build();
+  }
+
+  @GetMapping
+  public List<ClienteDTO> buscarTodos() {
+    List<ClienteEntity> entities  = clienteRepository.findAll();
+    return entities.stream().map(entity -> new ClienteDTO(
+        entity.getNome(), 
+        entity.getEndereco().getLogradouro(), 
+        entity.getContato().getTelefone()
+      )).toList();
   }
 }
