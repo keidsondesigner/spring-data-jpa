@@ -6,102 +6,109 @@ public class ClienteDTO {
   private String endereco;
   private String telefone;
 
-  public ClienteDTO() {}
-
   public ClienteDTO(String nome, String endereco, String telefone) {
     this.nome = nome;
     this.endereco = endereco;
     this.telefone = telefone;
   }
 
+  public ClienteDTO() {
+  }
+
+  public static ClienteDTOBuilder builder() {
+    return new ClienteDTOBuilder();
+  }
+
   public String getNome() {
-    return nome;
+    return this.nome;
+  }
+
+  public String getEndereco() {
+    return this.endereco;
+  }
+
+  public String getTelefone() {
+    return this.telefone;
   }
 
   public void setNome(String nome) {
     this.nome = nome;
   }
 
-  public String getEndereco() {
-    return endereco;
-  }
-
   public void setEndereco(String endereco) {
     this.endereco = endereco;
-  }
-
-  public String getTelefone() {
-    return telefone;
   }
 
   public void setTelefone(String telefone) {
     this.telefone = telefone;
   }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-    result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-    result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    ClienteDTO other = (ClienteDTO) obj;
-    if (nome == null) {
-      if (other.nome != null)
-        return false;
-    } else if (!nome.equals(other.nome))
-      return false;
-    if (endereco == null) {
-      if (other.endereco != null)
-        return false;
-    } else if (!endereco.equals(other.endereco))
-      return false;
-    if (telefone == null) {
-      if (other.telefone != null)
-        return false;
-    } else if (!telefone.equals(other.telefone))
-      return false;
+  public boolean equals(final Object o) {
+    if (o == this) return true;
+    if (!(o instanceof ClienteDTO)) return false;
+    final ClienteDTO other = (ClienteDTO) o;
+    if (!other.canEqual((Object) this)) return false;
+    final Object this$nome = this.getNome();
+    final Object other$nome = other.getNome();
+    if (this$nome == null ? other$nome != null : !this$nome.equals(other$nome)) return false;
+    final Object this$endereco = this.getEndereco();
+    final Object other$endereco = other.getEndereco();
+    if (this$endereco == null ? other$endereco != null : !this$endereco.equals(other$endereco)) return false;
+    final Object this$telefone = this.getTelefone();
+    final Object other$telefone = other.getTelefone();
+    if (this$telefone == null ? other$telefone != null : !this$telefone.equals(other$telefone)) return false;
     return true;
   }
 
-  // Adicionar padrão Builder
-  public static Builder builder() {
-    return new Builder();
+  protected boolean canEqual(final Object other) {
+    return other instanceof ClienteDTO;
   }
 
-  public static class Builder {
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final Object $nome = this.getNome();
+    result = result * PRIME + ($nome == null ? 43 : $nome.hashCode());
+    final Object $endereco = this.getEndereco();
+    result = result * PRIME + ($endereco == null ? 43 : $endereco.hashCode());
+    final Object $telefone = this.getTelefone();
+    result = result * PRIME + ($telefone == null ? 43 : $telefone.hashCode());
+    return result;
+  }
+
+  public String toString() {
+    return "ClienteDTO(nome=" + this.getNome() + ", endereco=" + this.getEndereco() + ", telefone=" + this.getTelefone() + ")";
+  }
+
+  public static class ClienteDTOBuilder {
     private String nome;
     private String endereco;
     private String telefone;
 
-    public Builder nome(String nome) {
+    ClienteDTOBuilder() {
+    }
+
+    public ClienteDTOBuilder nome(String nome) {
       this.nome = nome;
       return this;
     }
 
-    public Builder endereco(String endereco) {
+    public ClienteDTOBuilder endereco(String endereco) {
       this.endereco = endereco;
       return this;
     }
 
-    public Builder telefone(String telefone) {
+    public ClienteDTOBuilder telefone(String telefone) {
       this.telefone = telefone;
       return this;
     }
 
     public ClienteDTO build() {
-      return new ClienteDTO(nome, endereco, telefone);
+      return new ClienteDTO(this.nome, this.endereco, this.telefone);
+    }
+
+    public String toString() {
+      return "ClienteDTO.ClienteDTOBuilder(nome=" + this.nome + ", endereco=" + this.endereco + ", telefone=" + this.telefone + ")";
     }
   }
 }
