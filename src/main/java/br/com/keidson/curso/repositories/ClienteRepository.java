@@ -12,6 +12,10 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
     List<ClienteEntity> findByEnderecoId(Long idEndereco);
 
-    @Query("SELECT c FROM ClienteEntity c WHERE c.contato.id = :idContato")
+    @Query("SELECT c FROM ClienteEntity c "
+        + " JOIN FETCH c.contato cont"
+        + " JOIN FETCH c.endereco end"
+        + " WHERE cont.id = :idContato "
+    )
     Optional<ClienteEntity> recuperarClientePorContato(Long idContato);
 }
