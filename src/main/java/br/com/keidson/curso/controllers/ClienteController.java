@@ -65,4 +65,15 @@ public class ClienteController {
             entity.getContato().getTelefone()
     )).toList();
   }
+
+  @GetMapping("/contatos/{idContato}")
+  public ClienteDTO buscarClientesPorContato(@PathVariable Long idContato) {
+    ClienteEntity clienteEntity  = clienteRepository.recuperarClientePorContato(idContato).orElseThrow(() -> new RuntimeException("Cliente por contatonão encontrado."));;
+
+    return ClienteDTO.builder()
+        .nome(clienteEntity.getNome())
+        .endereco(clienteEntity.getEndereco().getLogradouro())
+        .telefone(clienteEntity.getContato().getTelefone())
+        .build();
+  }
 }
