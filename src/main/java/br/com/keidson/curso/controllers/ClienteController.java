@@ -41,4 +41,15 @@ public class ClienteController {
         entity.getContato().getTelefone()
       )).toList();
   }
+
+  @GetMapping("/enderecos/{idEndereco}")
+  public List<ClienteDTO> buscarClientesPorEndereco(@PathVariable Long idEndereco) {
+    List<ClienteEntity> entities  = clienteRepository.findByEnderecoId(idEndereco);
+
+    return entities.stream().map(entity -> new ClienteDTO(
+            entity.getNome(),
+            entity.getEndereco().getLogradouro(),
+            entity.getContato().getTelefone()
+    )).toList();
+  }
 }
