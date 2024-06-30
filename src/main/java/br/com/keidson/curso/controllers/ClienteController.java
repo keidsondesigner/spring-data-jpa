@@ -2,6 +2,9 @@ package br.com.keidson.curso.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +36,23 @@ public class ClienteController {
   }
 
   @GetMapping
-  public List<ClienteDTO> buscarTodos() {
+  public List<ClienteDTO> buscarClientes() {
     List<ClienteEntity> entities  = clienteRepository.findAll();
     return entities.stream().map(entity -> new ClienteDTO(
         entity.getNome(), 
         entity.getEndereco().getLogradouro(), 
         entity.getContato().getTelefone()
       )).toList();
+  }
+
+  @GetMapping("/paginados")
+  public Page<ClienteDTO> buscarClientesPaginados(@PageableDefault(size = 2) Pageable page) {
+    Page<ClienteEntity> entities  = clienteRepository.findAll(page);
+    return entities.map(entity -> new ClienteDTO(
+            entity.getNome(),
+            entity.getEndereco().getLogradouro(),
+            entity.getContato().getTelefone()
+    ));
   }
 
   @GetMapping("/enderecos/{idEndereco}")
